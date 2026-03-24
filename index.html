@@ -1,0 +1,1118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>All Souls Unitarian — Climate Action Prioritization</title>
+<link href="https://fonts.googleapis.com/css2?family=Libre+Baskerville:ital,wght@0,400;0,700;1,400&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;1,9..40,400&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink:         #181c14;
+    --ink-mid:     rgba(24,28,20,0.55);
+    --ink-faint:   rgba(24,28,20,0.10);
+    --paper:       #f6f3ed;
+    --white:       #ffffff;
+    --flame:       #bf4a1a;
+    --flame-pale:  #fdf0ea;
+    --moss:        #3a6644;
+    --moss-pale:   #eaf2ec;
+    --gold:        #9c7c1e;
+    --gold-pale:   #f8f2df;
+    --sky:         #1b4f72;
+    --sky-pale:    #e8f0f8;
+    --slate:       #455a64;
+    --slate-pale:  #eceff1;
+    --amber:       #b06820;
+    --amber-pale:  #fdf3e6;
+    --plum:        #6b3a6b;
+    --plum-pale:   #f5eef8;
+    --border:      rgba(24,28,20,0.09);
+    --radius:      6px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--paper);
+    color: var(--ink);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 13.5px;
+    line-height: 1.55;
+  }
+
+  /* ═══ HEADER ═══ */
+  .header {
+    background: var(--ink);
+    color: var(--white);
+    display: grid;
+    grid-template-columns: 1fr auto;
+    gap: 0;
+  }
+  .header-main {
+    padding: 48px 56px 44px;
+    position: relative;
+    overflow: hidden;
+  }
+  .header-main::before {
+    content: '';
+    position: absolute;
+    top: -60px; right: -80px;
+    width: 340px; height: 340px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(191,74,26,0.25) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .header-main::after {
+    content: '';
+    position: absolute;
+    bottom: -40px; left: 200px;
+    width: 200px; height: 200px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(58,102,68,0.2) 0%, transparent 65%);
+    pointer-events: none;
+  }
+  .eyebrow {
+    font-size: 10.5px;
+    font-weight: 600;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.42);
+    margin-bottom: 10px;
+    position: relative;
+  }
+  .header-main h1 {
+    font-family: 'Libre Baskerville', serif;
+    font-size: clamp(24px, 3.2vw, 42px);
+    font-weight: 700;
+    line-height: 1.12;
+    position: relative;
+  }
+  .header-main h1 em {
+    font-style: italic;
+    color: #f0a070;
+  }
+  .header-desc {
+    margin-top: 14px;
+    font-size: 13px;
+    font-weight: 300;
+    color: rgba(255,255,255,0.58);
+    max-width: 540px;
+    line-height: 1.65;
+    position: relative;
+  }
+  .header-desc + .header-desc { margin-top: 10px; }
+  .header-stats {
+    background: var(--flame);
+    padding: 40px 36px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap: 0;
+    min-width: 240px;
+  }
+  .stat { padding: 12px 0; border-bottom: 1px solid rgba(255,255,255,0.18); }
+  .stat:last-child { border-bottom: none; }
+  .stat-n {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1;
+  }
+  .stat-l {
+    font-size: 10.5px;
+    font-weight: 500;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: rgba(255,255,255,0.62);
+    margin-top: 3px;
+  }
+
+  /* ═══ CONTEXT STRIP ═══ */
+  .ctx-strip {
+    background: var(--gold-pale);
+    border-bottom: 1px solid rgba(156,124,30,0.18);
+    padding: 14px 56px;
+    display: flex;
+    gap: 24px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .ctx-chip {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+  }
+  .ctx-dot {
+    width: 22px; height: 22px;
+    border-radius: 50%;
+    background: var(--gold);
+    color: white;
+    font-size: 10px;
+    display: flex; align-items: center; justify-content: center;
+    flex-shrink: 0;
+  }
+  .ctx-chip b { color: var(--gold); font-weight: 600; }
+
+  /* ═══ CONTROLS ═══ */
+  .controls {
+    background: var(--white);
+    border-bottom: 1px solid var(--border);
+    padding: 12px 56px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: 10px;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: 0 2px 8px rgba(24,28,20,0.05);
+  }
+  .legend {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    align-items: center;
+  }
+  .legend-sep { color: var(--border); font-size: 18px; line-height: 1; }
+  .filters {
+    display: flex;
+    gap: 6px;
+    flex-wrap: wrap;
+  }
+  .fb {
+    border: 1.5px solid var(--border);
+    background: transparent;
+    border-radius: 100px;
+    padding: 4px 12px;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 12px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: all 0.14s;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+  .fb:hover { border-color: var(--flame); color: var(--flame); }
+  .fb.on { background: var(--ink); color: var(--white); border-color: var(--ink); }
+
+  /* ═══ BADGES ═══ */
+  .badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    border-radius: 4px;
+    padding: 2px 8px;
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    white-space: nowrap;
+    line-height: 1.5;
+  }
+  .b-hr    { background: var(--moss-pale);   color: var(--moss);   }
+  .b-w     { background: var(--amber-pale);  color: var(--amber);  }
+  .b-eb    { background: var(--flame-pale);  color: var(--flame);  }
+  .b-grad  { background: var(--sky-pale);    color: var(--sky);    }
+  .b-now   { background: #fffbe6; color: #7a5800; border: 1px solid #e8c84a; }
+  .b-plan  { background: var(--slate-pale);  color: var(--slate);  }
+  .b-ops   { background: var(--plum-pale);   color: var(--plum);   }
+  .b-new   { background: var(--flame-pale);  color: var(--flame); font-size: 9.5px; padding: 1px 6px; vertical-align: middle; margin-left: 4px; }
+  .b-act-now  { background: var(--flame-pale); color: var(--flame); border: 1px solid rgba(191,74,26,0.3); }
+  .b-plan-nxt { background: var(--sky-pale);   color: var(--sky);   border: 1px solid rgba(27,79,114,0.25); }
+  .b-worth    { background: var(--slate-pale); color: var(--slate); border: 1px solid rgba(69,90,100,0.2); }
+
+  /* ═══ SECTION HEADERS ═══ */
+  .sec-row td {
+    padding: 7px 14px 7px 16px;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    border: none !important;
+    border-radius: 0 !important;
+  }
+  .sec-capital td { background: var(--ink); color: rgba(255,255,255,0.85); }
+  .sec-ops     td { background: var(--plum); color: rgba(255,255,255,0.85); }
+  .sec-community td { background: var(--moss); color: rgba(255,255,255,0.85); }
+
+  /* ═══ TABLE ═══ */
+  .wrap {
+    padding: 24px 56px 56px;
+    overflow-x: auto;
+  }
+  table {
+    width: 100%;
+    border-collapse: separate;
+    border-spacing: 0 3px;
+    min-width: 960px;
+  }
+  thead th {
+    padding: 7px 12px;
+    text-align: left;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--ink-mid);
+    border-bottom: 2px solid var(--ink);
+    white-space: nowrap;
+  }
+
+  tbody tr { transition: box-shadow 0.13s, transform 0.13s; }
+  tbody tr.hidden { display: none; }
+  tbody tr:not(.sec-row):hover {
+    box-shadow: 0 3px 16px rgba(24,28,20,0.09);
+    transform: translateY(-1px);
+    position: relative;
+    z-index: 1;
+  }
+
+  td {
+    padding: 16px 12px;
+    vertical-align: top;
+    background: var(--white);
+    border-top: 1px solid var(--border);
+    border-bottom: 1px solid var(--border);
+  }
+  td:first-child {
+    border-left: 1px solid var(--border);
+    border-radius: var(--radius) 0 0 var(--radius);
+    padding-left: 14px;
+  }
+  td:last-child {
+    border-right: 1px solid var(--border);
+    border-radius: 0 var(--radius) var(--radius) 0;
+  }
+
+  /* priority circle */
+  .pri {
+    width: 30px; height: 30px;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    font-family: 'Libre Baskerville', serif;
+    font-weight: 700;
+    font-size: 14px;
+    flex-shrink: 0;
+  }
+  .p1  { background: var(--flame);  color: white; }
+  .p2  { background: var(--ink);    color: #f0a070; }
+  .p3  { background: var(--moss);   color: white; }
+  .p4  { background: var(--sky);    color: white; }
+  .p5  { background: var(--gold);   color: white; }
+  .p6  { background: var(--amber);  color: white; }
+  .p7  { background: var(--slate);  color: white; }
+  .p8  { background: var(--plum);   color: white; }
+  .p9  { background: rgba(24,28,20,0.14); color: var(--ink); }
+  .p10 { background: rgba(24,28,20,0.10); color: var(--ink-mid); }
+  .p11 { background: rgba(24,28,20,0.07); color: var(--ink-mid); }
+  .p12 { background: rgba(24,28,20,0.05); color: rgba(24,28,20,0.4); }
+  .p13 { background: rgba(24,28,20,0.04); color: rgba(24,28,20,0.35); }
+  .p14 { background: rgba(24,28,20,0.03); color: rgba(24,28,20,0.3); }
+  .p15 { background: rgba(24,28,20,0.02); color: rgba(24,28,20,0.28); }
+  .p16 { background: rgba(24,28,20,0.02); color: rgba(24,28,20,0.25); }
+
+  /* solution name */
+  .sol {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 14.5px;
+    font-weight: 700;
+    line-height: 1.2;
+    color: var(--ink);
+  }
+  .sol-sector {
+    font-size: 10px;
+    color: var(--ink-mid);
+    margin-top: 2px;
+    font-style: italic;
+  }
+  /* description */
+  .desc { font-size: 12px; color: var(--ink-mid); max-width: 240px; line-height: 1.5; }
+  .as-note {
+    margin-top: 7px;
+    font-size: 11.5px;
+    font-weight: 500;
+    color: var(--flame);
+    line-height: 1.45;
+    border-left: 2px solid var(--flame);
+    padding-left: 7px;
+    max-width: 240px;
+  }
+
+  /* impact */
+  .imp-n {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--moss);
+    line-height: 1.1;
+  }
+  .imp-s { font-size: 10px; color: var(--ink-mid); margin-top: 3px; line-height: 1.4; }
+  .imp-tier {
+    display: inline-block;
+    border-radius: 3px;
+    padding: 1px 7px;
+    font-size: 9.5px;
+    font-weight: 700;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    margin-bottom: 5px;
+  }
+  .tier-vh  { background: var(--moss-pale);  color: var(--moss);  border: 1px solid #90c4a0; }
+  .tier-hi  { background: #edf7f0;           color: #357a50;      border: 1px solid #a8d8b8; }
+  .tier-mod { background: var(--amber-pale); color: var(--amber); border: 1px solid #e0b870; }
+  .tier-low { background: var(--slate-pale); color: var(--slate); border: 1px solid #b8c8d8; }
+
+  /* cost */
+  .cost-s { font-size: 12.5px; font-weight: 600; color: var(--moss); }
+  .cost-i { font-size: 12.5px; font-weight: 600; color: var(--sky); }
+  .cost-est { font-size: 11px; color: var(--ink-mid); font-style: italic; margin-top: 2px; }
+  sup.fn { font-size: 9px; vertical-align: super; color: var(--flame); font-weight: 700; line-height: 0; }
+  .footnotes { padding: 28px 56px 32px; border-top: 1px solid var(--border); }
+  .footnotes h4 { font-size: 10px; font-weight: 700; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-mid); margin-bottom: 10px; }
+  .fn-list { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+  .fn-list li { font-size: 11px; color: var(--ink-mid); line-height: 1.55; display: flex; gap: 8px; }
+  .fn-list li .fn-num { font-weight: 700; color: var(--flame); flex-shrink: 0; min-width: 14px; }
+  .cost-n { font-size: 12.5px; font-weight: 600; color: var(--slate); }
+  .cost-sub { font-size: 10.5px; color: var(--ink-mid); margin-top: 3px; line-height: 1.4; }
+
+  /* source chips */
+  .src-chips { margin-top: 6px; display: flex; flex-wrap: wrap; gap: 4px; }
+  .sc {
+    display: inline-flex;
+    align-items: center;
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-size: 9.5px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-decoration: none;
+    white-space: nowrap;
+    line-height: 1.6;
+    transition: opacity 0.12s;
+  }
+  .sc:hover { opacity: 0.78; }
+  .sc-gov  { background: #e8f0f8; color: #1b4f72; border: 1px solid #b8d0e8; } /* DOE, NREL, ASHRAE, EPA★ */
+  .sc-sci  { background: #eaf2ec; color: #2d5c3a; border: 1px solid #b0d4b8; } /* IPCC, RMI, ACEEE */
+  .sc-faith{ background: #fdf3e6; color: #8a4e10; border: 1px solid #e8c090; } /* IPL */
+  .sc-local{ background: var(--plum-pale); color: var(--plum); border: 1px solid #c4a0c4; } /* Tulsa community orgs */
+
+  /* benefit tags */
+  .bt {
+    display: inline-block;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 3px;
+    padding: 1px 6px;
+    font-size: 10px;
+    margin: 2px 2px 2px 0;
+    color: var(--ink);
+    white-space: nowrap;
+  }
+
+  /* ═══ FOOTER ═══ */
+  footer {
+    background: var(--ink);
+    color: rgba(255,255,255,0.48);
+    padding: 28px 56px;
+    font-size: 11px;
+    line-height: 1.75;
+    display: flex;
+    justify-content: space-between;
+    gap: 24px;
+    flex-wrap: wrap;
+  }
+  footer a { color: #f0a070; text-decoration: none; }
+  footer a:hover { text-decoration: underline; }
+  .footer-logo {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 14px;
+    color: rgba(255,255,255,0.22);
+    text-align: right;
+    white-space: nowrap;
+    align-self: flex-end;
+  }
+
+  /* ═══ SUMMARY BAND ═══ */
+  .summary-band {
+    background: var(--gold-pale);
+    border-bottom: 1px solid var(--border);
+    padding: 24px 56px 28px;
+  }
+  .sb-stats {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+    margin-bottom: 18px;
+  }
+  .sb-pill {
+    background: var(--white);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+    padding: 3px 13px;
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink);
+    letter-spacing: 0.02em;
+  }
+  .sb-cols {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 36px;
+  }
+  .sb-col-eyebrow {
+    font-size: 10px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.18em;
+    margin-bottom: 10px;
+  }
+  .sb-col-flame .sb-col-eyebrow { color: var(--flame); }
+  .sb-col-gold  .sb-col-eyebrow { color: var(--gold); }
+  .sb-col-moss  .sb-col-eyebrow { color: var(--moss); }
+  .sb-action-card {
+    background: var(--white);
+    border: 1px solid rgba(191,74,26,0.18);
+    border-left: 3px solid var(--flame);
+    border-radius: 0 6px 6px 0;
+    padding: 8px 10px;
+    margin-bottom: 6px;
+  }
+  .sb-action-name {
+    font-family: 'Libre Baskerville', serif;
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--ink);
+    margin-bottom: 2px;
+  }
+  .sb-action-why {
+    font-size: 10.5px;
+    color: var(--ink-mid);
+    line-height: 1.5;
+  }
+  .sb-bullet {
+    display: flex;
+    gap: 9px;
+    margin-bottom: 9px;
+    align-items: flex-start;
+  }
+  .sb-dot {
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    flex-shrink: 0;
+    margin-top: 4px;
+    background: var(--gold);
+  }
+  .sb-bullet-label {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink);
+    line-height: 1.4;
+  }
+  .sb-bullet-text {
+    font-size: 10.5px;
+    color: var(--ink-mid);
+    line-height: 1.5;
+    margin-top: 1px;
+  }
+  .sb-values-para {
+    font-size: 11px;
+    color: var(--ink-mid);
+    line-height: 1.65;
+    margin-bottom: 12px;
+  }
+  .sb-link-chip {
+    display: inline-block;
+    font-size: 10px;
+    color: var(--moss);
+    font-weight: 600;
+    text-decoration: none;
+    background: var(--moss-pale);
+    border: 1px solid #b0d4b8;
+    border-radius: 3px;
+    padding: 2px 8px;
+    margin-right: 6px;
+    margin-bottom: 4px;
+    transition: opacity 0.12s;
+  }
+  .sb-link-chip:hover { opacity: 0.78; }
+
+  /* ═══ FILTER COUNT ═══ */
+  .filter-count {
+    font-size: 11px;
+    font-weight: 600;
+    color: var(--ink-mid);
+    white-space: nowrap;
+    padding: 3px 10px;
+    background: var(--paper);
+    border: 1px solid var(--border);
+    border-radius: 100px;
+  }
+
+  @media (max-width: 900px) {
+    .header { grid-template-columns: 1fr; }
+    .header-stats { display: none; }
+    .header-main, .ctx-strip, .summary-band, .controls, .wrap, footer { padding-left: 18px; padding-right: 18px; }
+    .sb-cols { grid-template-columns: 1fr; gap: 20px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<div class="header">
+  <div class="header-main">
+    <div class="eyebrow">All Souls Unitarian Church · Tulsa, Oklahoma · Climate Action Plan</div>
+    <h1>Building &amp; Campus<br><em>Climate Action Priorities</em></h1>
+    <p class="header-desc">The 1957 systems are in their replacement window. The decisions made in the next 12 months — about what equipment goes in and how the building envelope is treated — will shape All Souls' energy profile and emissions for the next 20 years.</p>
+    <p class="header-desc">This plan ranks 16 science-based actions by climate impact and feasibility for All Souls specifically. Ten are ready to start this year. Two more belong in the 2026–27 capital budget. Four are worthwhile upgrades to pursue when renovation cycles create natural openings.</p>
+    <p class="header-desc">Most of the immediate actions pay for themselves through utility savings. They are also, at their core, an expression of who we are: a congregation committed to the interconnected web of all life, and to meeting this moment with the same moral seriousness we bring to every justice challenge.</p>
+  </div>
+  <div class="header-stats">
+    <div class="stat"><div class="stat-n">~42,000</div><div class="stat-l">Est. sq ft conditioned</div></div>
+    <div class="stat"><div class="stat-n">1957</div><div class="stat-l">Building vintage</div></div>
+    <div class="stat"><div class="stat-n">5 acres</div><div class="stat-l">Campus · Maple Ridge</div></div>
+    <div class="stat"><div class="stat-n">~1,800</div><div class="stat-l">Members · Largest US UU</div></div>
+    <div class="stat"><div class="stat-n">16</div><div class="stat-l">Action items below</div></div>
+  </div>
+</div>
+
+<!-- CONTEXT STRIP -->
+<div class="ctx-strip">
+  <div class="ctx-chip"><div class="ctx-dot">☀</div><span><b>Cooling-dominant</b> — 66+ days above 90°F today, projected 100+ by mid-century<sup class="fn">4</sup></span></div>
+  <div class="ctx-chip"><div class="ctx-dot">⚡</div><span><b>Oklahoma grid ~40% fossil</b> — electrification value grows yearly</span></div>
+  <div class="ctx-chip"><div class="ctx-dot">🏛</div><span><b>1957 mid-century build</b> — likely single-pane glass, minimal insulation, aging HVAC</span></div>
+  <div class="ctx-chip"><div class="ctx-dot">📋</div><span><b>Nonprofit</b> — IRA direct pay, PACE financing, utility rebates, UUA grants available</span></div>
+  <div class="ctx-chip"><div class="ctx-dot">🕍</div><span><b>Variable occupancy</b> — mostly empty Mon–Tue, Thu–Sat; peak use Sunday services + Wednesday Connections</span></div>
+</div>
+
+
+<!-- CONTROLS -->
+<div class="controls">
+  <div class="filters">
+    <button class="fb on"  data-dim="all"  onclick="filt('all',null,this)">All</button>
+    <button class="fb" data-dim="tier" onclick="filt('tier','act-now',this)">Act Now</button>
+    <button class="fb" data-dim="tier" onclick="filt('tier','plan-next',this)">Plan Next</button>
+    <button class="fb" data-dim="tier" onclick="filt('tier','worthwhile',this)">Worthwhile</button>
+    <button class="fb" data-dim="cat"  onclick="filt('cat','capital',this)">Building &amp; Campus</button>
+    <button class="fb" data-dim="cat"  onclick="filt('cat','ops',this)">Operations</button>
+    <button class="fb" data-dim="cat"  onclick="filt('cat','community',this)">Congregation</button>
+    <button class="fb" data-dim="cost" onclick="filt('cost','saving',this)">Saves Money</button>
+  </div>
+  <span class="filter-count" id="filter-count">16 of 16</span>
+</div>
+
+<!-- TABLE -->
+<div class="wrap">
+<table id="T">
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Solution</th>
+      <th>Recommendation</th>
+      <th>What It Does &amp; Why It Matters for All Souls</th>
+      <th>Climate Impact</th>
+      <th>Cost / Savings<div style="font-size:10px;font-weight:400;font-style:italic;color:var(--ink-mid);margin-top:3px;line-height:1.4;">Directional estimates — verify before budgeting</div></th>
+      <th>Key Benefits</th>
+    </tr>
+  </thead>
+  <tbody>
+
+  <!-- ══ SECTION 1: CAPITAL IMPROVEMENTS ══ -->
+  <tr class="sec-row sec-capital" data-sec="capital">
+    <td colspan="7">🔨 &nbsp; Capital Improvements — Physical upgrades to the building and campus</td>
+  </tr>
+
+  <!-- 1. Refrigerant Management -->
+  <tr data-cat="capital" data-timing="now" data-cost="saving" data-speed="eb" data-tier="act-now">
+    <td><div class="pri p1">1</div></td>
+    <td>
+      <div class="sol">Improve Refrigerant Management</div>
+      <div class="sol-sector">Buildings &amp; Industry</div>
+      <div class="src-chips">
+        <a class="sc sc-sci" href="https://drawdown.org/explorer/improve-refrigerant-management" target="_blank">Drawdown</a>
+        <a class="sc sc-sci" href="https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-9/" target="_blank">IPCC AR6 Ch.9</a>
+        <a class="sc sc-sci" href="https://rmi.org/revolutionizing-the-air-conditioner/" target="_blank">RMI</a>
+      </div>
+    </td>
+    <td><span class="badge b-act-now">▶ Act Now</span></td>
+    <td>
+      <div class="desc">Audit all HVAC systems for HFC refrigerant leaks. HFCs are up to 9,000× more potent than CO₂. Fix leaks and plan for low-GWP alternative refrigerants at next equipment replacement.</div>
+      <div class="as-note">A 1957 campus with aging HVAC almost certainly has leaking refrigerant. The fastest and cheapest climate action available to All Souls — schedule an audit immediately. With replacement planned, also ensure your HVAC contractor follows EPA Section 608 refrigerant recovery requirements during decommissioning — proper recovery is legally required and prevents HFC release into the atmosphere.</div>
+    </td>
+    <td><div class="imp-tier tier-vh">Very High</div><div class="imp-n">≈ 90–195 million cars/yr equivalent globally</div><div class="imp-s">0.43–0.89 Gt/yr · 1 Gt = 1 billion metric tons CO₂<sup class="fn">1</sup></div><div class="imp-s">Highest cost-effectiveness of any climate action; fix leaks now + require EPA §608 recovery at decommissioning</div></td>
+    <td><div class="cost-s">Saves money</div><div class="cost-sub">Inspection + seal; also improves HVAC efficiency and lowers utility bills</div></td>
+    <td><span class="bt">Air quality</span><span class="bt">Compliance</span><span class="bt">HVAC lifespan</span></td>
+  </tr>
+
+  <!-- 2. Heat Pumps -->
+  <tr data-cat="capital" data-timing="now" data-cost="saving" data-speed="grad" data-tier="act-now">
+    <td><div class="pri p2">2</div></td>
+    <td>
+      <div class="sol">Use Heat Pumps</div>
+      <div class="sol-sector">Buildings &amp; Electricity</div>
+      <div class="src-chips">
+        <a class="sc sc-sci" href="https://drawdown.org/explorer/use-heat-pumps" target="_blank">Drawdown</a>
+        <a class="sc sc-sci" href="https://rmi.org/insight/economics-of-electrifying-buildings-medium-size-commercial-retrofits/" target="_blank">RMI</a>
+        <a class="sc sc-sci" href="https://publications.wri.org/buildingefficiency/" target="_blank">WRI</a>
+        <a class="sc sc-sci" href="https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-9/" target="_blank">IPCC AR6 Ch.9</a>
+        <a class="sc sc-gov" href="https://www.energy.gov/eere/buildings/building-technologies-office" target="_blank">DOE BTO</a>
+        <a class="sc sc-gov" href="https://www.ashrae.org/technical-resources/ashrae-handbook/2023-ashrae-handbook-hvac-applications" target="_blank">ASHRAE Handbook</a>
+      </div>
+    </td>
+    <td><span class="badge b-act-now">▶ Act Now</span></td>
+    <td>
+      <div class="desc">Replace gas or aging HVAC with all-electric heat pumps at end-of-life. Heat pumps provide both heating and cooling at 3× efficiency of direct resistance. Impact grows as Oklahoma's grid gets cleaner.</div>
+      <div class="as-note">The HVAC replacement this year or next is the most important climate decision window currently open to All Souls. Specifying all-electric heat pumps — rather than conventional gas equipment — in this cycle eliminates combustion from the building and locks in high efficiency as Oklahoma's grid continues to decarbonize. Missing this window means 15–20 years of unnecessary emissions. Get heat pump contractor bids immediately alongside conventional bids for comparison. Tulsa's mild winters make heat pumps especially well-suited here.</div>
+    </td>
+    <td><div class="imp-tier tier-vh">Very High</div><div class="imp-n">≈ 125–200 million cars/yr equivalent globally</div><div class="imp-s">0.57–0.91 Gt/yr · 1 Gt = 1 billion metric tons CO₂</div><div class="imp-s">≈ 50–90 tons CO₂/yr eliminated at All Souls; locks in decarbonization as Oklahoma's grid cleans up</div></td>
+    <td><div class="cost-s">Net savings</div><div class="cost-est">Est. $50–150K installed</div><div class="cost-sub">179D deduction (allocated to your HVAC contractor, not direct cash); must begin construction by June 30, 2026.<sup class="fn">3</sup> Grows more valuable as grid decarbonizes.</div></td>
+    <td><span class="bt">Heating + cooling</span><span class="bt">Health (no combustion)</span><span class="bt">Grid-ready</span></td>
+  </tr>
+
+  <!-- 3. Improve Building Envelopes -->
+  <tr data-cat="capital" data-timing="now" data-cost="saving" data-speed="grad" data-tier="act-now">
+    <td><div class="pri p3">3</div></td>
+    <td>
+      <div class="sol">Improve Building Envelopes</div>
+      <div class="sol-sector">Buildings &amp; Electricity</div>
+      <div class="src-chips">
+        <a class="sc sc-sci" href="https://drawdown.org/explorer/improve-building-envelopes" target="_blank">Drawdown</a>
+        <a class="sc sc-sci" href="https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-9/" target="_blank">IPCC AR6 Ch.9</a>
+        <a class="sc sc-sci" href="https://rmi.org/insight/economics-of-electrifying-buildings-medium-size-commercial-retrofits/" target="_blank">RMI</a>
+        <a class="sc sc-sci" href="https://publications.wri.org/buildingefficiency/" target="_blank">WRI</a>
+        <a class="sc sc-gov" href="https://www.energy.gov/eere/buildings/building-technologies-office" target="_blank">DOE BTO</a>
+        <a class="sc sc-gov" href="https://www.ashrae.org/technical-resources/bookstore/standard-90-1" target="_blank">ASHRAE 90.1</a>
+      </div>
+    </td>
+    <td><span class="badge b-act-now">▶ Act Now</span></td>
+    <td>
+      <div class="desc">Add wall/roof insulation and air-sealing. Use low-embodied-carbon materials (cellulose, mineral wool) per Drawdown's "Alternative Insulation Materials" solution — also Highly Recommended at −$121/t. Do this before replacing HVAC to rightsize new systems. WRI: every $1 spent on efficiency avoids $2+ in energy supply investment.</div>
+      <div class="as-note">With renovation funds in hand and HVAC replacement imminent, this is the right moment. Commission an energy audit immediately — heat load calculations before equipment is specified will rightsize the new HVAC system and could reduce equipment cost by 20–30%. Insulation and air-sealing bundled into the renovation scope earns the highest ROI. Doing envelope work after HVAC replacement means oversizing — wasted capital and higher operating cost for years.</div>
+    </td>
+    <td><div class="imp-tier tier-hi">High</div><div class="imp-n">20–40% HVAC load reduction</div><div class="imp-s">Energy audit before equipment spec could cut HVAC cost 20–30%</div></td>
+    <td><div class="cost-s">Net savings</div><div class="cost-est">Est. $2–6/sq ft</div><div class="cost-sub">PACE financing available. 179D deduction (to contractor) if work begins before June 30, 2026.<sup class="fn">3</sup></div></td>
+    <td><span class="bt">Comfort</span><span class="bt">Noise reduction</span><span class="bt">HVAC rightsizing</span></td>
+  </tr>
+
+  <!-- 4. Improve Windows -->
+  <tr data-cat="capital" data-timing="now" data-cost="saving" data-speed="grad" data-tier="act-now">
+    <td><div class="pri p4">4</div></td>
+    <td>
+      <div class="sol">Improve Windows &amp; Glass</div>
+      <div class="sol-sector">Buildings &amp; Electricity</div>
+      <div class="src-chips">
+        <a class="sc sc-sci" href="https://drawdown.org/explorer/improve-windows-glass" target="_blank">Drawdown</a>
+        <a class="sc sc-sci" href="https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-9/" target="_blank">IPCC AR6 Ch.9</a>
+        <a class="sc sc-sci" href="https://rmi.org/insight/economics-of-electrifying-buildings-medium-size-commercial-retrofits/" target="_blank">RMI</a>
+        <a class="sc sc-gov" href="https://www.energy.gov/eere/buildings/building-technologies-office" target="_blank">DOE BTO</a>
+        <a class="sc sc-gov" href="https://www.ashrae.org/technical-resources/bookstore/standard-90-1" target="_blank">ASHRAE 90.1</a>
+      </div>
+    </td>
+    <td><span class="badge b-act-now">▶ Act Now</span></td>
+    <td>
+      <div class="desc">Retrofit single-pane windows with double-glazing plus low-e coating. Windows drive 30–50% of heating/cooling loads. Low-e glass blocks solar heat gain — critical for Tulsa's intense summer sun. Global impact: equivalent to removing 455–565 million cars/yr (2.10–2.60 Gt CO₂-eq; 1 Gt = 1 billion metric tons).</div>
+      <div class="as-note">With window replacement actively under consideration and renovation funds available, the decision window is open now. Low-e double-glazing on south- and west-facing glass is especially high-impact in Tulsa's intense summer sun, directly reducing cooling load on the new HVAC system. Specify low-e coatings and solar heat gain coefficients (SHGC ≤ 0.25 for south/west exposures) when getting bids. Phasing by wing is reasonable if budget requires it.</div>
+    </td>
+    <td><div class="imp-tier tier-hi">High</div><div class="imp-n">≈ 455–565 million cars/yr equivalent globally</div><div class="imp-s">2.10–2.60 Gt/yr · 1 Gt = 1 billion metric tons CO₂</div><div class="imp-s">10–20% cooling load reduction; directly rightsizes new HVAC</div></td>
+    <td><div class="cost-i">Moderate investment</div><div class="cost-est">Est. $1,500–5,000/window installed</div><div class="cost-sub">Commercial/institutional; higher for large or custom panes. Can be phased by wing.</div></td>
+    <td><span class="bt">Comfort</span><span class="bt">Glare ↓</span><span class="bt">Property value</span><span class="bt">Health</span></td>
+  </tr>
+
+  <!-- 5. Automate Building Systems -->
+  <tr data-cat="capital" data-timing="now" data-cost="saving" data-speed="grad" data-tier="act-now">
+    <td><div class="pri p5">5</div></td>
+    <td>
+      <div class="sol">Automate Building Systems</div>
+      <div class="sol-sector">Buildings &amp; Electricity</div>
+      <div class="src-chips">
+        <a class="sc sc-sci" href="https://drawdown.org/explorer/automate-building-systems" target="_blank">Drawdown</a>
+        <a class="sc sc-gov" href="https://www.ashrae.org/technical-resources/bookstore/ashrae-guideline-13-specifying-building-automation-systems" target="_blank">ASHRAE GL-13</a>
+        <a class="sc sc-gov" href="https://betterbuildingssolutioncenter.energy.gov/" target="_blank">DOE Better Buildings</a>
+        <a class="sc sc-sci" href="https://rmi.org/insight/economics-of-electrifying-buildings-medium-size-commercial-retrofits/" target="_blank">RMI</a>
+        <a class="sc sc-sci" href="https://publications.wri.org/buildingefficiency/" target="_blank">WRI</a>
+      </div>
+    </td>
+    <td><span class="badge b-act-now">▶ Act Now</span></td>
+    <td>
+      <div class="desc">Install smart thermostats, occupancy sensors, and a building management system (BMS) to match HVAC and lighting to actual use — not a fixed schedule.</div>
+      <div class="as-note">All Souls' occupancy pattern — empty most of the week, with two high-use days (Sunday services and Wednesday Connections programs) — makes BMS exceptionally high-value. Can cut HVAC runtime 30–50% in unoccupied zones. 2–4 year payback at 42,000 sq ft. Coordinate BMS installation with the HVAC replacement — bundling smart controls into the HVAC contract is significantly cheaper than a standalone retrofit later.</div>
+    </td>
+    <td><div class="imp-tier tier-hi">High</div><div class="imp-n">15–30% whole-building energy reduction</div><div class="imp-s">42,000 sq ft; two peak days weekly (Sun services + Wed Connections) surrounded by unoccupied hours: est. 2–4 yr payback</div></td>
+    <td><div class="cost-s">Net savings</div><div class="cost-est">Est. $15–40K installed</div><div class="cost-sub">2–4 yr payback. No disruption to services.</div></td>
+    <td><span class="bt">Utility savings</span><span class="bt">Comfort</span><span class="bt">Grid flexibility</span></td>
+  </tr>
+
+  <!-- 6. Deploy LED Lighting -->
+  <tr data-cat="capital" data-timing="now" data-cost="saving" data-speed="grad" data-tier="act-now">
+    <td><div class="pri p6">6</div></td>
+    <td>
+      <div class="sol">Deploy LED Lighting <span class="badge b-new">NEW</span></div>
+      <div class="sol-sector">Electricity</div>
+      <div class="src-chips">
+        <a class="sc sc-sci" href="https://drawdown.org/explorer/led-lighting" target="_blank">Drawdown</a>
+        <a class="sc sc-sci" href="https://publications.wri.org/buildingefficiency/" target="_blank">WRI</a>
+        <a class="sc sc-gov" href="https://www.energy.gov/eere/buildings/building-technologies-office" target="_blank">DOE BTO</a>
+        <a class="sc sc-sci" href="https://www.aceee.org/topic/energy-efficiency-strategies-and-upgrades" target="_blank">ACEEE</a>
+        <a class="sc sc-gov" href="https://www.energystar.gov/buildings" target="_blank">EPA ENERGY STAR</a>
+      </div>
+    </td>
+    <td><span class="badge b-act-now">▶ Act Now</span></td>
+    <td>
+      <div class="desc">Replace all fluorescent, incandescent, and HID fixtures with LED. Cuts lighting electricity use by 50–75%. One of the highest-confidence, fastest-payback upgrades in the entire Drawdown database.</div>
+      <div class="as-note">Global impact: equivalent to removing 135–140 million cars/yr (0.62–0.65 Gt CO₂-eq; net savings). A 1957 building with original or fluorescent lighting has enormous untapped savings. Sanctuary, Emerson Hall, classrooms, and exterior all apply.</div>
+    </td>
+    <td><div class="imp-tier tier-vh">Very High</div><div class="imp-n">≈ 135–140 million cars/yr equivalent globally</div><div class="imp-s">0.62–0.65 Gt/yr · 1 Gt = 1 billion metric tons CO₂</div><div class="imp-s">≈ 10–20 tons CO₂/yr; 50–75% reduction in All Souls' lighting electricity</div></td>
+    <td><div class="cost-s">Net savings</div><div class="cost-est">Est. $1–3/sq ft</div><div class="cost-sub">2–4 yr payback. PSO utility rebates available for commercial LED retrofits.</div></td>
+    <td><span class="bt">Energy savings</span><span class="bt">Light quality</span><span class="bt">Maintenance ↓</span><span class="bt">Safety</span></td>
+  </tr>
+
+  <!-- 7. Distributed Solar PV -->
+  <tr id="row7" data-cat="capital" data-timing="plan" data-cost="saving" data-speed="grad" data-tier="plan-next">
+    <td><div class="pri p7">7</div></td>
+    <td>
+      <div class="sol">Deploy Distributed Solar PV <span class="badge b-new">NEW</span></div>
+      <div class="sol-sector">Electricity</div>
+      <div class="src-chips">
+        <a class="sc sc-sci" href="https://drawdown.org/explorer/distributed-solar-pv" target="_blank">Drawdown</a>
+        <a class="sc sc-gov" href="https://pvwatts.nrel.gov/" target="_blank">NREL PVWatts</a>
+        <a class="sc sc-gov" href="https://www.energy.gov/eere/buildings/building-technologies-office" target="_blank">DOE BTO</a>
+        <a class="sc sc-sci" href="https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-9/" target="_blank">IPCC AR6 Ch.9</a>
+      </div>
+    </td>
+    <td><span class="badge b-plan-nxt">◌ Plan Next</span></td>
+    <td>
+      <div class="desc">Rooftop solar PV generates on-site clean electricity, offsetting grid power. Tulsa receives ~5.5 peak sun hours/day. A 200 kW system on 42,000 sq ft could offset 30–50% of electricity use. IRA Sec. 48E provides a 30% direct cash payment to nonprofits — no tax liability needed. Projects must begin construction by July 4, 2026 to remain eligible.</div>
+      <div class="as-note">Install after envelope + LED upgrades so you rightsize the array. The 30% IRA direct pay is a game-changer for nonprofits. A visible solar installation is also a powerful public statement of All Souls' values. If any roof work is planned as part of the renovation, this is the ideal time to complete a solar feasibility assessment and reserve roof space — installing after a fresh roof avoids future re-work.</div>
+    </td>
+    <td><div class="imp-tier tier-hi">High</div><div class="imp-n">~280 MWh/yr est. (200 kW system)</div><div class="imp-s">Offsets ~30–50% of All Souls' electricity; IRA 30% direct pay</div></td>
+    <td><div class="cost-s">Net savings</div><div class="cost-est">Est. $0.80–1.20/W installed</div><div class="cost-sub">30% IRA elective pay (begin construction by July 4, 2026 to qualify);<sup class="fn">3</sup> 8–12 yr payback in Oklahoma. ~25–30 yr panel life.</div></td>
+    <td><span class="bt">Energy independence</span><span class="bt">Mission visibility</span><span class="bt">Resilience</span></td>
+  </tr>
+
+  <!-- 8. Cool Roofs -->
+  <tr data-cat="capital" data-timing="plan" data-cost="saving" data-speed="grad" data-tier="worthwhile">
+    <td><div class="pri p8">8</div></td>
+    <td>
+      <div class="sol">Use Cool Roofs <span class="badge b-new">NEW</span></div>
+      <div class="sol-sector">Electricity</div>
+      <div class="src-chips">
+        <a class="sc sc-sci" href="https://drawdown.org/explorer/cool-roofs" target="_blank">Drawdown</a>
+        <a class="sc sc-sci" href="https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-9/" target="_blank">IPCC AR6 Ch.9</a>
+        <a class="sc sc-gov" href="https://www.energy.gov/eere/buildings/building-technologies-office" target="_blank">DOE BTO</a>
+        <a class="sc sc-gov" href="https://www.energystar.gov/buildings" target="_blank">EPA ENERGY STAR</a>
+      </div>
+    </td>
+    <td><span class="badge b-worth">◆ Worthwhile</span></td>
+    <td>
+      <div class="desc">Apply reflective white or light-colored roofing membranes to reduce solar heat absorption, cutting cooling loads by 10–20%. Cheapest when bundled with next scheduled roof replacement.</div>
+      <div class="as-note">Tulsa's intense summer sun makes this particularly effective. At re-roof time, specifying a cool roof membrane adds minimal cost but meaningfully reduces cooling load — pairs well with green roof on flat sections.</div>
+    </td>
+    <td><div class="imp-tier tier-mod">Moderate</div><div class="imp-n">10–20% cooling load reduction</div><div class="imp-s">Near-zero marginal cost at re-roof; pairs with green roof on flat sections</div></td>
+    <td><div class="cost-s">Saves money</div><div class="cost-est">Near-zero added cost at re-roof</div><div class="cost-sub">Can also be applied as coating to existing membrane.</div></td>
+    <td><span class="bt">Cooling load ↓</span><span class="bt">Urban heat island</span><span class="bt">Roof lifespan ↑</span></td>
+  </tr>
+
+  <!-- 9. Solar Hot Water -->
+  <tr data-cat="capital" data-timing="plan" data-cost="saving" data-speed="grad" data-tier="plan-next">
+    <td><div class="pri p9">9</div></td>
+    <td>
+      <div class="sol">Deploy Solar Hot Water</div>
+      <div class="sol-sector">Buildings</div>
+      <div class="src-chips">
+        <a class="sc sc-sci" href="https://drawdown.org/explorer/deploy-solar-hot-water" target="_blank">Drawdown</a>
+        <a class="sc sc-gov" href="https://www.nrel.gov/solar/market-research-analysis/" target="_blank">NREL Solar</a>
+        <a class="sc sc-gov" href="https://www.energy.gov/eere/buildings/building-technologies-office" target="_blank">DOE BTO</a>
+      </div>
+    </td>
+    <td><span class="badge b-plan-nxt">◌ Plan Next</span></td>
+    <td>
+      <div class="desc">Rooftop solar thermal collectors supply 50–80% of domestic hot water needs. Oklahoma's 220+ sunny days/year makes solar thermal highly productive. Water heating is buildings' #2 energy end use after HVAC.</div>
+      <div class="as-note">Emerson Hall kitchen and restrooms serving hundreds weekly mean significant hot water demand. Bundle with rooftop solar PV planning to optimize roof usage. UUA sustainability grants may apply.</div>
+    </td>
+    <td><div class="imp-tier tier-hi">High</div><div class="imp-n">50–80% of hot water demand</div><div class="imp-s">Tulsa's 220+ sunny days; Emerson Hall kitchen + restroom demand</div></td>
+    <td><div class="cost-i">Moderate investment</div><div class="cost-est">Est. $15–40K installed</div><div class="cost-sub">~10–15 yr payback; UUA Green Sanctuary program may assist; 179D deduction if bundled with HVAC upgrade.<sup class="fn">3</sup></div></td>
+    <td><span class="bt">Energy independence</span><span class="bt">Mission alignment</span><span class="bt">Visible commitment</span></td>
+  </tr>
+
+  <!-- 10. Urban Vegetation -->
+  <tr data-cat="capital" data-timing="now" data-cost="saving" data-speed="grad" data-tier="act-now">
+    <td><div class="pri p10">10</div></td>
+    <td>
+      <div class="sol">Increase Urban Vegetation</div>
+      <div class="sol-sector">Buildings &amp; Electricity</div>
+      <div class="src-chips">
+        <a class="sc sc-sci" href="https://drawdown.org/explorer/increase-urban-vegetation" target="_blank">Drawdown</a>
+        <a class="sc sc-local" href="https://upwithtrees.org/" target="_blank">Up With Trees</a>
+        <a class="sc sc-sci" href="https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-9/" target="_blank">IPCC AR6 Ch.9</a>
+        <a class="sc sc-gov" href="https://www.energystar.gov/buildings" target="_blank">EPA ENERGY STAR</a>
+      </div>
+    </td>
+    <td><span class="badge b-act-now">▶ Act Now</span></td>
+    <td>
+      <div class="desc">Expand tree canopy and plantings around the building. Strategic shading on south and west exposures can cut cooling loads 20–30%. Also sequesters carbon and reduces stormwater runoff.</div>
+      <div class="as-note">The 5-acre campus is an asset. Native plantings on the west and south faces of the sanctuary and Emerson Hall shade the building during Tulsa's brutal afternoon heat. Up With Trees (upwithtrees.org) offers native tree giveaways and a free Tree Selector Tool. With a new outdoor space under design, this is a direct integration opportunity — work with the outdoor space designer to incorporate native tree placement on south and west building faces for passive cooling, plus pollinator plantings that serve both the congregation and Maple Ridge neighbors.</div>
+    </td>
+    <td><div class="imp-tier tier-mod">Moderate</div><div class="imp-n">20–30% cooling on shaded faces</div><div class="imp-s">Integrates directly with new outdoor space design</div></td>
+    <td><div class="cost-s">Low investment</div><div class="cost-est">Est. $500–5,000</div><div class="cost-sub">Native plantings; Tulsa urban forestry grants available. Congregation can participate directly.</div></td>
+    <td><span class="bt">Biodiversity</span><span class="bt">Stormwater</span><span class="bt">Mental health</span><span class="bt">Beauty</span></td>
+  </tr>
+
+  <!-- 11. Green Roofs -->
+  <tr data-cat="capital" data-timing="plan" data-cost="invest" data-speed="grad" data-tier="worthwhile">
+    <td><div class="pri p11">11</div></td>
+    <td>
+      <div class="sol">Increase Green Roofs</div>
+      <div class="sol-sector">Buildings &amp; Electricity</div>
+      <div class="src-chips">
+        <a class="sc sc-sci" href="https://drawdown.org/explorer/increase-green-roofs" target="_blank">Drawdown</a>
+        <a class="sc sc-gov" href="https://www.energystar.gov/buildings" target="_blank">EPA ENERGY STAR</a>
+        <a class="sc sc-gov" href="https://www.energy.gov/eere/buildings/building-technologies-office" target="_blank">DOE BTO</a>
+      </div>
+    </td>
+    <td><span class="badge b-worth">◆ Worthwhile</span></td>
+    <td>
+      <div class="desc">Vegetated roof system on flat-roof sections reduces cooling loads, manages stormwater, and extends roof lifespan by 20+ years. Most impactful on flat mid-century roof sections.</div>
+      <div class="as-note">Phase with next roof replacement. Flat-roof sections of All Souls' building are ideal. Tulsa's stormwater management incentives may offset cost. Cool roof + green roof on different sections is a strong combined strategy.</div>
+    </td>
+    <td><div class="imp-tier tier-low">Modest</div><div class="imp-n">5–15% rooftop cooling load reduction</div><div class="imp-s">Extends roof life 20+ yrs; Tulsa stormwater incentives possible</div></td>
+    <td><div class="cost-i">Moderate investment</div><div class="cost-est">Est. $10–25/sq ft</div><div class="cost-sub">At re-roof; extends roof life 20+ yrs, offsetting cost. Tulsa stormwater rebates possible.</div></td>
+    <td><span class="bt">Stormwater</span><span class="bt">Roof lifespan</span><span class="bt">Urban heat</span><span class="bt">Biodiversity</span></td>
+  </tr>
+
+  <!-- ══ SECTION 2: OPERATIONS & PROGRAMS ══ -->
+  <tr class="sec-row sec-ops" data-sec="ops">
+    <td colspan="7">✦ &nbsp; Operations &amp; Programs — How All Souls runs its campus day-to-day</td>
+  </tr>
+
+  <!-- 12. Low-Flow Fixtures -->
+  <tr data-cat="ops" data-timing="plan" data-cost="saving" data-speed="grad" data-tier="worthwhile">
+    <td><div class="pri p12">12</div></td>
+    <td>
+      <div class="sol">Use Low-Flow Fixtures</div>
+      <div class="sol-sector">Buildings &amp; Electricity</div>
+      <div class="src-chips">
+        <a class="sc sc-sci" href="https://drawdown.org/explorer/use-low-flow-fixtures" target="_blank">Drawdown</a>
+        <a class="sc sc-gov" href="https://www.energystar.gov/buildings" target="_blank">EPA ENERGY STAR</a>
+        <a class="sc sc-gov" href="https://www.energy.gov/eere/buildings/building-technologies-office" target="_blank">DOE BTO</a>
+      </div>
+    </td>
+    <td><span class="badge b-worth">◆ Worthwhile</span></td>
+    <td>
+      <div class="desc">Install low-flow showerheads, faucet aerators, and dual-flush toilets. Reduces hot water energy, water bills, and utility-side treatment emissions.</div>
+      <div class="as-note">Hundreds of restroom visits each Sunday and Wednesday. Very low-cost, DIY-installable, and qualifies for Tulsa utility rebates. A quick win a volunteer team can execute this month.</div>
+    </td>
+    <td><div class="imp-tier tier-low">Modest</div><div class="imp-n">20–30% water use reduction</div><div class="imp-s">Hundreds of restroom visits each Sunday and Wednesday; DIY-installable this month</div></td>
+    <td><div class="cost-s">Low investment</div><div class="cost-est">Est. $200–800 total</div><div class="cost-sub">DIY-installable. Immediate water + utility bill savings. Tulsa utility rebates available.</div></td>
+    <td><span class="bt">Water conservation</span><span class="bt">Cost savings</span><span class="bt">Easy win</span></td>
+  </tr>
+
+  <!-- 13. Food Loss & Waste + Plant-Rich Menus -->
+  <tr data-cat="ops" data-timing="now" data-cost="saving" data-speed="eb" data-tier="act-now">
+    <td><div class="pri p13">13</div></td>
+    <td>
+      <div class="sol">Reduce Food Waste &amp; Improve Diets <span class="badge b-new">NEW</span></div>
+      <div class="sol-sector">Food, Agriculture, Land &amp; Ocean</div>
+      <div class="src-chips">
+        <a class="sc sc-sci" href="https://drawdown.org/explorer/food-loss-and-waste" target="_blank">Drawdown</a>
+        <a class="sc sc-sci" href="https://www.ipcc.ch/report/ar6/wg3/chapter/summary-for-policymakers/" target="_blank">IPCC AR6 SPM</a>
+        <a class="sc sc-sci" href="https://www.coolfood.org/" target="_blank">WRI Cool Food</a>
+        <a class="sc sc-faith" href="https://interfaithpowerandlight.org/blog/2021/11/24/energy-efficiency-guide-for-congregations/" target="_blank">Interfaith P&amp;L</a>
+      </div>
+    </td>
+    <td><span class="badge b-act-now">▶ Act Now</span></td>
+    <td>
+      <div class="desc">Two of Drawdown's highest-impact solutions: Reduce Food Loss &amp; Waste (≈ 270–540 million cars/yr equivalent; 1.23–2.47 Gt/yr) and Improve Diets — shifting toward plant-rich meals (≈ 305–610 million cars/yr; 1.40–2.80 Gt/yr — the single largest solution in the entire database).</div>
+      <div class="as-note">Emerson Hall hosts coffee hours, potlucks, and community meals regularly. Shifting toward plant-forward menus and composting food scraps directly enacts two of Drawdown's top solutions — and aligns perfectly with UU values. Consider joining WRI's Cool Food Pledge (free for mission-driven nonprofits) — a verified commitment to 25% per-plate GHG reduction by 2030, with a free Coolfood Calculator to track progress across Sunday coffee hours and Wednesday Connections meals. 90+ institutions serving 2.8 billion meals annually have already committed; verified members have achieved an average 11% reduction so far.<sup class="fn">5</sup></div>
+    </td>
+    <td><div class="imp-tier tier-vh">Very High</div><div class="imp-n">≈ 305–610 million cars/yr equivalent globally</div><div class="imp-s">1.40–2.80 Gt/yr · 1 Gt = 1 billion metric tons CO₂</div><div class="imp-s">Largest single Drawdown solution; every Sunday + Wednesday Connections event is an opportunity</div></td>
+    <td><div class="cost-s">Saves money</div><div class="cost-sub">Plant-forward meals are often cheaper. Food waste reduction saves on purchasing. No capital required.</div></td>
+    <td><span class="bt">Health</span><span class="bt">Cost savings</span><span class="bt">Mission alignment</span><span class="bt">Community</span></td>
+  </tr>
+
+  <!-- 14. Composting + Recycling -->
+  <tr id="row14" data-cat="ops" data-timing="now" data-cost="saving" data-speed="eb" data-tier="act-now">
+    <td><div class="pri p14">14</div></td>
+    <td>
+      <div class="sol">Centralized Composting &amp; Recycling <span class="badge b-new">NEW</span></div>
+      <div class="sol-sector">Industry, Materials &amp; Waste</div>
+      <div class="src-chips">
+        <a class="sc sc-sci" href="https://drawdown.org/explorer/centralized-composting" target="_blank">Drawdown</a>
+        <a class="sc sc-sci" href="https://www.ipcc.ch/report/ar6/wg3/chapter/summary-for-policymakers/" target="_blank">IPCC AR6 SPM</a>
+        <a class="sc sc-sci" href="https://flwprotocol.org/" target="_blank">WRI FLW Protocol</a>
+        <a class="sc sc-gov" href="https://www.energystar.gov/buildings" target="_blank">EPA ENERGY STAR</a>
+        <a class="sc sc-faith" href="https://interfaithpowerandlight.org/coolcongregations/resources-2/" target="_blank">Interfaith P&amp;L</a>
+      </div>
+    </td>
+    <td><span class="badge b-act-now">▶ Act Now</span></td>
+    <td>
+      <div class="desc">Composting organic waste (≈ 170–260 million cars/yr; 0.78–1.20 Gt/yr) and recycling metals, paper, and plastics (combined ≈ 480 million cars/yr equivalent) are all Highly Recommended solutions with near-zero cost. Diverts waste from landfills, preventing methane emissions.</div>
+      <div class="as-note">Set up clearly labeled compost + recycling stations in Emerson Hall kitchen and throughout the building. Partner with a Tulsa composting service (e.g., Tulsa Composts). A Green Sanctuary committee project. WRI's free Food Loss and Waste (FLW) Protocol Quantification Tool provides a standardized measurement method to baseline how much food is wasted before composting begins — useful for tracking and reporting impact over time to the congregation.</div>
+    </td>
+    <td><div class="imp-tier tier-vh">Very High</div><div class="imp-n">≈ 170–260 million cars/yr equivalent globally</div><div class="imp-s">0.78–1.20 Gt/yr composting alone · 1 Gt = 1 billion metric tons CO₂</div><div class="imp-s">Near-zero cost; congregation can set this up for Sunday coffee hour and Wednesday programs immediately</div></td>
+    <td><div class="cost-s">Saves money</div><div class="cost-est">Est. $30–60/mo for pickup service</div><div class="cost-sub">Bins + signage only upfront. Congregation volunteers can manage.</div></td>
+    <td><span class="bt">Waste diversion</span><span class="bt">Soil health</span><span class="bt">Community engagement</span></td>
+  </tr>
+
+  <!-- 15. Appliance Efficiency -->
+  <tr data-cat="ops" data-timing="plan" data-cost="saving" data-speed="grad" data-tier="worthwhile">
+    <td><div class="pri p15">15</div></td>
+    <td>
+      <div class="sol">Boost Appliance &amp; Equipment Efficiency</div>
+      <div class="sol-sector">Buildings &amp; Electricity</div>
+      <div class="src-chips">
+        <a class="sc sc-sci" href="https://drawdown.org/explorer/boost-appliance-equipment-efficiency" target="_blank">Drawdown</a>
+        <a class="sc sc-gov" href="https://www.energystar.gov/buildings" target="_blank">EPA ENERGY STAR</a>
+        <a class="sc sc-gov" href="https://www.energy.gov/eere/buildings/building-technologies-office" target="_blank">DOE BTO</a>
+        <a class="sc sc-sci" href="https://www.aceee.org/program/energy-efficiency-buildings" target="_blank">ACEEE</a>
+      </div>
+    </td>
+    <td><span class="badge b-worth">◆ Worthwhile</span></td>
+    <td>
+      <div class="desc">Replace refrigerators, dishwashers, and AV equipment in Emerson Hall kitchen and offices with Energy Star models at natural end-of-life. Also consider induction cooktops to eliminate gas combustion.</div>
+      <div class="as-note">Replace at EOL only — the climate math doesn't justify early replacement. Bundle kitchen electrification with any renovation. PSO/ONG offer commercial Energy Star rebates.</div>
+    </td>
+    <td><div class="imp-tier tier-low">Modest</div><div class="imp-n">10–30% appliance energy reduction</div><div class="imp-s">Replace at EOL only; PSO/ONG commercial Energy Star rebates available</div></td>
+    <td><div class="cost-s">Saves money</div><div class="cost-est">Cost-neutral at end of life</div><div class="cost-sub">Utility rebates for commercial Energy Star appliances available through PSO/ONG.</div></td>
+    <td><span class="bt">Kitchen efficiency</span><span class="bt">Cost savings</span><span class="bt">Air quality</span></td>
+  </tr>
+
+  <!-- ══ SECTION 3: COMMUNITY ACTION ══ -->
+  <tr class="sec-row sec-community" data-sec="community">
+    <td colspan="7">🌱 &nbsp; Community Action — Programs that engage members and extend All Souls' impact beyond the building</td>
+  </tr>
+
+  <!-- 16. Carpooling + EV + E-bike -->
+  <tr data-cat="community" data-timing="now" data-cost="saving" data-speed="grad" data-tier="act-now">
+    <td><div class="pri p16">16</div></td>
+    <td>
+      <div class="sol">Carpooling, E-Bikes &amp; EV Infrastructure <span class="badge b-new">NEW</span></div>
+      <div class="sol-sector">Transportation</div>
+      <div class="src-chips">
+        <a class="sc sc-sci" href="https://drawdown.org/explorer/carpooling" target="_blank">Drawdown</a>
+        <a class="sc sc-sci" href="https://www.ipcc.ch/report/ar6/wg3/chapter/summary-for-policymakers/" target="_blank">IPCC AR6 SPM</a>
+        <a class="sc sc-gov" href="https://betterbuildingssolutioncenter.energy.gov/" target="_blank">DOE Better Buildings</a>
+        <a class="sc sc-gov" href="https://www.nrel.gov/transportation/evi-pro" target="_blank">NREL EVI-Pro</a>
+      </div>
+    </td>
+    <td><span class="badge b-act-now">▶ Act Now</span></td>
+    <td>
+      <div class="desc">Carpooling (−$3,119/t CO₂-eq) and electric bicycles (−$1,748/t) are among the most cost-effective solutions in the entire Drawdown database. A church — where hundreds travel to the same place at the same time — is an ideal venue for organized carpooling. Add bike parking + 2–4 EV chargers to enable low-carbon arrival.</div>
+      <div class="as-note">All Souls can coordinate Sunday carpooling via app (e.g., GoKid), install a bike shelter, and add Level 2 EV chargers in the parking lot. These are programming actions that also serve the surrounding Maple Ridge neighborhood.</div>
+    </td>
+    <td><div class="imp-tier tier-hi">High</div><div class="imp-n">−$3,119/t CO₂-eq (carpooling)</div><div class="imp-s">Two weekly gathering points (Sunday services + Wednesday Connections) — ideal conditions for organized carpooling</div></td>
+    <td><div class="cost-s">Net savings</div><div class="cost-est">Est. $2–20K for infrastructure</div><div class="cost-sub">Carpooling: free to organize. Bike shelter: ~$2–5K. EV chargers: ~$5–15K; federal 30C credit (6–30% via elective pay) requires census-tract eligibility + placement in service by June 30, 2026.<sup class="fn">3</sup></div></td>
+    <td><span class="bt">Member savings</span><span class="bt">Air quality</span><span class="bt">Community bonds</span><span class="bt">Equity</span></td>
+  </tr>
+
+  </tbody>
+</table>
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <div style="max-width:620px;">
+    Recommendations supported by multiple peer-reviewed and science-based sources including <a href="https://drawdown.org/explorer" target="_blank">Project Drawdown</a>, IPCC AR6, Rocky Mountain Institute, the DOE Building Technologies Office, NREL, ASHRAE, ACEEE, EPA ENERGY STAR, and Interfaith Power &amp; Light. Sectors covered: Buildings, Buildings &amp; Electricity, Electricity, Industry/Materials/Waste, Food/Agriculture/Land, and Transportation. Contextualization reflects All Souls Unitarian Church's estimated ~42,000 sq ft 1957 Maple Ridge campus in Tulsa, OK. Square footage is an estimate based on congregation size and campus description — confirm with facilities. Global impact figures from Drawdown's published data; local effectiveness varies by region, grid mix, and occupancy. Cost figures in 2023–2025 USD. Financing pathways: IRA Sec. 48E elective pay — solar, begin construction by July 4, 2026; IRS Sec. 179D — HVAC/envelope, begin construction by June 30, 2026; PACE financing (Oklahoma statewide); PSO/ONG utility rebates; UUA Green Sanctuary program. "Coming Soon" solutions on the Explorer reflect confirmed Highly Recommended classification with impact data forthcoming.
+    <div style="margin-top:18px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.12);">
+      <div style="font-size:10px;font-weight:700;letter-spacing:0.14em;text-transform:uppercase;color:rgba(255,255,255,0.28);margin-bottom:8px;">Additional Sources</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px 16px;font-size:11px;line-height:1.9;">
+        <span><a href="https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-9/" target="_blank" style="color:#f0a070;">IPCC AR6 WG3 Ch. 9</a> — Buildings chapter, Climate Change 2022: Mitigation</span>
+        <span><a href="https://rmi.org/insight/economics-of-electrifying-buildings-medium-size-commercial-retrofits/" target="_blank" style="color:#f0a070;">Rocky Mountain Institute</a> — Economics of Electrifying Commercial Buildings</span>
+        <span><a href="https://www.energy.gov/eere/buildings/building-technologies-office" target="_blank" style="color:#f0a070;">DOE Building Technologies Office</a> — U.S. commercial building efficiency standards &amp; research</span>
+        <span><a href="https://betterbuildingssolutioncenter.energy.gov/" target="_blank" style="color:#f0a070;">DOE Better Buildings Solution Center</a> — Proven efficiency solutions for commercial buildings</span>
+        <span><a href="https://pvwatts.nrel.gov/" target="_blank" style="color:#f0a070;">NREL PVWatts</a> — Solar energy production estimates for Oklahoma</span>
+        <span><a href="https://www.ashrae.org/technical-resources/bookstore/standard-90-1" target="_blank" style="color:#f0a070;">ASHRAE Standard 90.1</a> — Energy efficiency standard for commercial buildings</span>
+        <span><a href="https://www.ashrae.org/technical-resources/bookstore/ashrae-guideline-13-specifying-building-automation-systems" target="_blank" style="color:#f0a070;">ASHRAE Guideline 13</a> — Specifying building automation systems</span>
+        <span><a href="https://www.aceee.org/program/energy-efficiency-buildings" target="_blank" style="color:#f0a070;">ACEEE Buildings Program</a> — American Council for an Energy-Efficient Economy</span>
+        <span><a href="https://www.energystar.gov/buildings" target="_blank" style="color:#f0a070;">EPA ENERGY STAR Buildings</a> — Commercial building benchmarking &amp; certification</span>
+        <span><a href="https://interfaithpowerandlight.org/blog/2021/11/24/energy-efficiency-guide-for-congregations/" target="_blank" style="color:#f0a070;">Interfaith Power &amp; Light</a> — Energy Efficiency Guide for Congregations</span>
+        <span><a href="https://publications.wri.org/buildingefficiency/" target="_blank" style="color:#f0a070;">WRI — Accelerating Building Efficiency</a> — Eight Actions for Urban Leaders; global building efficiency benchmarks</span>
+        <span><a href="https://www.coolfood.org/" target="_blank" style="color:#f0a070;">WRI Cool Food Pledge</a> — Institutional 25%-by-2030 food emissions reduction commitment + Coolfood Calculator</span>
+        <span><a href="https://flwprotocol.org/" target="_blank" style="color:#f0a070;">WRI FLW Protocol</a> — Standardized food loss and waste measurement framework</span>
+        <span><a href="https://upwithtrees.org/" target="_blank" style="color:#f0a070;">Up With Trees (Tulsa)</a> — Tulsa urban forestry nonprofit; native tree giveaways and Tree Selector Tool</span>
+      </div>
+    </div>
+  </div>
+  <div class="footnotes">
+    <h4>Notes</h4>
+    <ol class="fn-list">
+      <li><span class="fn-num">1</span><span>All Gt/yr global impact figures from <a href="https://drawdown.org/explorer" target="_blank">Project Drawdown</a>. Car equivalents calculated using EPA's figure of 4.6 metric tons CO₂ per passenger car per year.</span></li>
+      <li><span class="fn-num">2</span><span><a href="https://www.ipcc.ch/report/ar6/wg3/chapter/chapter-9/" target="_blank">IPCC AR6 WG3 Chapter 9</a> — Buildings chapter, <em>Climate Change 2022: Mitigation of Climate Change</em>.</span></li>
+      <li><span class="fn-num">3</span><span>§179D deduction, IRA §48E direct pay, and 30C EV charger credit deadlines reflect current legislation as of early 2026. Eligibility requirements and timelines are complex — verify with a tax professional before contracting.</span></li>
+      <li><span class="fn-num">4</span><span>Tulsa days-above-90°F projection: Oklahoma Climatological Survey / NOAA Climate Explorer, RCP 4.5 moderate emissions scenario.</span></li>
+      <li><span class="fn-num">5</span><span>WRI Cool Food Pledge program data as reported by <a href="https://www.coolfood.org/" target="_blank">coolfood.org</a>.</span></li>
+    </ol>
+  </div>
+  <div class="footer-logo">
+    All Souls Unitarian<br>
+    <span style="font-size:11px;font-weight:300;font-family:'DM Sans',sans-serif;">Tulsa, Oklahoma · drawdown.org/explorer</span>
+  </div>
+</footer>
+
+<script>
+// Composable filter state — each dimension tracks one active value (or null = inactive)
+const activeFilters = { tier: null, cat: null, cost: null };
+
+function filt(dimension, value, btn) {
+  // "All" button: clear everything and reset
+  if (dimension === 'all') {
+    activeFilters.tier   = null;
+    activeFilters.cat    = null;
+    activeFilters.cost   = null;
+    document.querySelectorAll('.fb').forEach(b => b.classList.remove('on'));
+    btn.classList.add('on');
+    applyFilters();
+    return;
+  }
+
+  // Toggle: clicking an active filter turns it off; clicking a new one turns it on
+  if (activeFilters[dimension] === value) {
+    activeFilters[dimension] = null;
+    btn.classList.remove('on');
+  } else {
+    // Turn off any other button in the same dimension
+    document.querySelectorAll(`.fb[data-dim="${dimension}"]`)
+      .forEach(b => b.classList.remove('on'));
+    activeFilters[dimension] = value;
+    btn.classList.add('on');
+  }
+
+  // Keep "All" button off whenever any filter is active; on only when all are clear
+  const anyActive = Object.values(activeFilters).some(v => v !== null);
+  document.querySelector('.fb[data-dim="all"]').classList.toggle('on', !anyActive);
+
+  applyFilters();
+}
+
+function applyFilters() {
+  const rows = document.querySelectorAll('#T tbody tr:not(.sec-row)');
+  let visibleCount = 0;
+
+  rows.forEach(r => {
+    const matchTier = !activeFilters.tier || r.dataset.tier === activeFilters.tier;
+    const matchCat  = !activeFilters.cat  || r.dataset.cat  === activeFilters.cat;
+    const matchCost = !activeFilters.cost || r.dataset.cost === activeFilters.cost;
+    const show = matchTier && matchCat && matchCost;
+    r.classList.toggle('hidden', !show);
+    if (show) visibleCount++;
+  });
+
+  // Hide section headers when all their rows are hidden
+  document.querySelectorAll('#T tbody tr.sec-row').forEach(hdr => {
+    let next = hdr.nextElementSibling;
+    let vis  = false;
+    while (next && !next.classList.contains('sec-row')) {
+      if (!next.classList.contains('hidden')) vis = true;
+      next = next.nextElementSibling;
+    }
+    hdr.classList.toggle('hidden', !vis);
+  });
+
+  // Update live result count
+  document.getElementById('filter-count').textContent = visibleCount + ' of 16';
+}
+</script>
+
+</body>
+</html>
